@@ -39,7 +39,10 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(
-                List.of("http://localhost:5173")
+                List.of(
+                        "http://localhost:5173",
+                        "https://employee-management-system-olive-one.vercel.app"
+                )
         );
 
         configuration.setAllowedMethods(
@@ -79,7 +82,9 @@ public class SecurityConfig {
             // =========================
             // CORS
             // =========================
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .cors(cors ->
+                    cors.configurationSource(corsConfigurationSource())
+            )
 
             // =========================
             // CSRF
@@ -113,7 +118,7 @@ public class SecurityConfig {
             // =========================
             .authorizeHttpRequests(auth -> auth
 
-                // Login/register
+                // Login / register
                 .requestMatchers("/api/auth/**")
                     .permitAll()
 
@@ -223,28 +228,28 @@ public class SecurityConfig {
                 // =========================
                 // ATTENDANCE SETTINGS
                 // =========================
-                    .requestMatchers(
-                            HttpMethod.POST,
-                            "/api/attendance-settings/holiday"
-                    )
+                .requestMatchers(
+                        HttpMethod.POST,
+                        "/api/attendance-settings/holiday"
+                )
                     .hasAnyRole("ADMIN", "HR")
 
-                    .requestMatchers(
-                            HttpMethod.DELETE,
-                            "/api/attendance-settings/holiday"
-                    )
+                .requestMatchers(
+                        HttpMethod.DELETE,
+                        "/api/attendance-settings/holiday"
+                )
                     .hasAnyRole("ADMIN", "HR")
 
-                    .requestMatchers(
-                            HttpMethod.GET,
-                            "/api/attendance-settings/**"
-                    )
+                .requestMatchers(
+                        HttpMethod.GET,
+                        "/api/attendance-settings/**"
+                )
                     .hasAnyRole("ADMIN", "HR", "EMPLOYEE")
 
-                    .requestMatchers(
-                            HttpMethod.PUT,
-                            "/api/attendance-settings/**"
-                    )
+                .requestMatchers(
+                        HttpMethod.PUT,
+                        "/api/attendance-settings/**"
+                )
                     .hasAnyRole("ADMIN", "HR")
 
                 // =========================
