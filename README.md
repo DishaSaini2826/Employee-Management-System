@@ -266,7 +266,7 @@ Employee-Management-System
 ├── .gitignore
 └── README.md
 
-🔄 How the System Works
+## 🔄 How the System Works
 The application follows a full-stack architecture where the React frontend communicates with the Spring Boot backend through REST APIs.
 User
  │
