@@ -287,7 +287,6 @@ Repository Layer
 MySQL Database
 
 The frontend is responsible for the user interface and user interaction.
-
 The backend handles:
 - Business logic
 - Authentication
@@ -296,15 +295,13 @@ The backend handles:
 - Database operations
 - REST API processing
 The database stores application data such as employees, users, departments, leaves, and attendance records.
-
 🔐 Authentication Flow
 The application uses JWT-based authentication.
 The login process works as follows:
-
 User enters Email & Password
            │
            ▼
-      React Login Page
+     React Login Page
            │
            ▼
    Spring Boot Auth API
@@ -323,12 +320,10 @@ User enters Email & Password
 
 The JWT token is used to authenticate protected requests.
 Spring Security checks the user's authentication and role before allowing access to protected resources.
-
-👥** Role-Based Access Control**
+👥 Role-Based Access Control
 The application uses three main roles:
-Admin
+👑 Admin
 Admin has the highest level of access.
-
 Admin can:
 - Manage employees
 - Manage departments
@@ -342,9 +337,8 @@ Admin can:
 - Edit and delete operational records
 The system does not allow creation of another Admin user.
 The Admin account is also protected from deletion.
-HR
+👨‍💼 HR
 HR handles employee and HR-related operations.
-
 HR can:
 - Add employees
 - Edit employees
@@ -358,17 +352,13 @@ HR can:
 - Approve/reject leaves
 - Manage attendance
 - Access dashboard
-
-
 HR cannot:
-- Create another HR user
-- Create an Admin user
-- Delete the Admin user
-- Manage Admin accounts
-Employee
+- ❌ Create another HR user
+- ❌ Create an Admin user
+- ❌ Delete the Admin user
+- ❌ Manage Admin accounts
+👤 Employee
 Employees have limited access to the system.
-
-
 Employees can:
 - Login
 - Access dashboard
@@ -378,17 +368,13 @@ Employees can:
 - Apply for leave
 - View their own leave requests
 - Track leave status
-
-
 Employees cannot:
-- Add employees
-- Edit employees
-- Delete employees
-- Manage departments
-- Manage users
-- Approve/reject leaves
-
-
+- ❌ Add employees
+- ❌ Edit employees
+- ❌ Delete employees
+- ❌ Manage departments
+- ❌ Manage users
+- ❌ Approve/reject leaves
 👨‍💼 Employee Management
 Employee Management is used by Admin and HR to maintain employee information.
 The system supports:
@@ -399,58 +385,50 @@ The system supports:
 - Viewing employee details
 - Deleting employees
 Each employee contains information such as:
-Employee Code
-Name
-Email
-Phone
-Department
-Designation
-Salary
-Joining Date
-Status
-
+- Employee Code
+- Name
+- Email
+- Phone
+- Department
+- Designation
+- Salary
+- Joining Date
+- Status
 Employee status can be used to identify whether an employee is currently active or inactive.
-
-
 🏢 Department Management
 The Department Management module allows Admin and HR to manage organizational departments.
 Department information includes:
-Department ID
-Department Name
-Description
-
+- Department ID
+- Department Name
+- Description
 The system supports:
 - Creating departments
 - Viewing departments
 - Updating departments
 - Deleting departments
-
-
 👤 User Management
 User Management is responsible for authentication and login accounts.
 The application intentionally keeps user records separate from employee records.
 Users Table
 The users table stores authentication-related information such as:
-User ID
-Name
-Email
-Password
-Role
-Employee ID
-
+- User ID
+- Name
+- Email
+- Password
+- Role
+- Employee ID
 Employees Table
 The employees table stores business-related employee information such as:
-Employee ID
-Employee Code
-Name
-Email
-Phone
-Department
-Designation
-Salary
-Joining Date
-Status
-
+- Employee ID
+- Employee Code
+- Name
+- Email
+- Phone
+- Department
+- Designation
+- Salary
+- Joining Date
+- Status
 For an Employee login, the users.employee_id field connects the login account with the corresponding employee record.
 Admin and HR accounts can exist without an employee record.
 🔗 User and Employee Relationship
@@ -458,41 +436,38 @@ The application follows a separate creation flow.
 Add Employee
 The Employee Management module creates the employee business record.
 Add Employee
-      │
-      ▼
+     │
+     ▼
 employees table
 
 Add User
 The User Management module creates the authentication/login account.
 Add User
-      │
-      ▼
+     │
+     ▼
 users table
 
 For an Employee user, the login account is linked to the employee record through:
 users.employee_id → employees.id
 
 This separation makes authentication data independent from employee business information.
-
-
 📝 Leave Management
 The Leave Management module allows employees to request leave and allows Admin and HR to manage those requests.
-Employee
+👤 Employee
 Employees can:
 - Apply for leave
 - View their own leave requests
 - Track leave status
-Admin / HR
+👑 Admin / HR
 Admin and HR can:
 - View leave requests
 - Approve leave
 - Reject leave
 - Delete leave records
 Leave status:
-Pending
-Approved
-Rejected
-
+- Pending
+- Approved
+- Rejected
 🕐 Attendance Management
 The Attendance module is used to manage employee attendance information.
 The system includes:
@@ -502,8 +477,6 @@ The system includes:
 - Role-based attendance access
 Admin and HR can manage attendance-related operations.
 Employees can access their own attendance information.
-
-
 📊 Dashboard
 The dashboard provides a summary of important information.
 Depending on the user's role, the dashboard can display information such as:
@@ -513,8 +486,6 @@ Depending on the user's role, the dashboard can display information such as:
 - Pending Leaves
 - Attendance information
 The dashboard provides a quick overview of the current system data.
-
-
 🔄 Data Synchronization
 The system maintains synchronization between user login information and the linked employee information.
 For example, when an employee's:
@@ -526,7 +497,6 @@ This helps prevent inconsistent information between:
 users
    ↕
 employees
-
 
 🧩 Backend Architecture
 The Spring Boot backend follows a layered architecture.
@@ -573,8 +543,6 @@ Examples include:
 - Attendance
 - Attendance Settings
 - Password Reset OTP
-
-
 🌐 Frontend Architecture
 The React frontend is organized into reusable components, pages, context, and services.
 src
@@ -612,22 +580,17 @@ are maintained inside the pages folder.
 Services
 The services folder handles communication between the React application and backend APIs.
 Axios is used for HTTP requests.
-
-
 🗄️ Database Design
 The application uses MySQL as the relational database.
 Main database tables include:
-users
-employees
-departments
-leaves
-attendance
-attendance_settings
-password_reset_otp
-
+- users
+- employees
+- departments
+- leaves
+- attendance
+- attendance_settings
+- password_reset_otp
 The database is accessed by Spring Data JPA and Hibernate.
-
-
 🔗 Database Relationship
 The main relationship between authentication and employee information is:
 users
@@ -642,8 +605,6 @@ Other modules use employee information for:
 - Leaves
 - Employee management
 - User management
-
-
 ⚠️ Validation & Error Handling
 The application contains validation at both frontend and backend levels.
 Validation includes:
@@ -657,8 +618,6 @@ Validation includes:
 - Login validation
 The backend also provides error messages when an operation is not allowed.
 The frontend displays user-friendly success and error notifications.
-
-
 🔔 User Notifications
 The frontend uses reusable Toast notifications for displaying important messages.
 Toast notifications are used for events such as:
@@ -668,22 +627,18 @@ Toast notifications are used for events such as:
 - Restricted actions
 - Delete confirmations/results
 This provides a better user experience compared to relying only on browser alerts.
-
-
 🔒 Password Security
 Passwords are not stored as plain text.
 The backend uses BCrypt password encoding before storing passwords in the database.
 User Password
       │
       ▼
- BCrypt Encryption
+BCrypt Encryption
       │
       ▼
 Database
 
 During login, Spring Security validates the entered password against the encrypted password.
-
-
 🔑 Forgot Password
 The application provides forgot-password functionality.
 The general process is:
@@ -702,8 +657,6 @@ Verify OTP
 Reset Password
 
 The password reset functionality uses email-based OTP verification.
-
-
 📡 API Communication
 The React frontend communicates with the Spring Boot backend using HTTP requests.
 Axios is used for API communication.
@@ -726,8 +679,6 @@ Repository
 MySQL
 
 The backend returns the required response to the frontend.
-
-
 🧪 API Testing
 Postman is used for testing backend REST APIs.
 API testing includes:
@@ -738,8 +689,6 @@ API testing includes:
 - Leave APIs
 - Attendance APIs
 Postman helps verify backend functionality before connecting or testing it through the React frontend.
-
-
 ⚙️ Project Setup
 Follow the steps below to run the project locally.
 1. Clone the Repository
@@ -753,7 +702,6 @@ Open MySQL and create the database:
 CREATE DATABASE employee_management;
 
 The application uses this database for storing employee management data.
-
 🔐 3. Configure Environment Variables
 The application does not store real database or email passwords directly in the GitHub repository.
 Configure the following environment variables on your local machine:
@@ -777,7 +725,6 @@ mvnw.cmd spring-boot:run
 
 The backend will run on:
 http://localhost:8080
-
 💻 5. Frontend Setup
 Open another terminal and navigate to the frontend:
 cd frontend
@@ -790,17 +737,14 @@ npm run dev
 
 The frontend will normally run on:
 http://localhost:5173
-
 ▶️ Running the Complete Application
 Start both applications.
 Backend
 Spring Boot
 http://localhost:8080
-
 Frontend
 React + Vite
 http://localhost:5173
-
 The complete application works as:
 Browser
    │
@@ -863,8 +807,6 @@ The application implements multiple security mechanisms:
 - Permission-based operations
 - Admin account protection
 The backend validates the authenticated user's role before allowing restricted operations.
-
-
 📌 Important Design Decisions
 Separate Users and Employees
 The system intentionally uses separate users and employees tables.
@@ -890,8 +832,6 @@ For example:
 - HR cannot create an Admin.
 - Admin cannot create another Admin.
 - Admin cannot be deleted through normal user management.
-
-
 📈 Future Enhancements
 The project can be further improved with features such as:
 - Employee profile photo
@@ -909,8 +849,6 @@ The project can be further improved with features such as:
 - Docker support
 - Automated testing
 - Production database configuration
-
-
 🎯 Learning Outcomes
 This project helped in understanding and implementing:
 - React.js
@@ -935,35 +873,30 @@ This project helped in understanding and implementing:
 - API testing using Postman
 - Git and GitHub
 - Full-stack application architecture
-
 🧑‍💻 Development Tools
 The project was developed using:
-Frontend:
-React.js
-Vite
-JavaScript
-HTML5
-CSS3
-Axios
-React Router
-
-Backend:
-Java
-Spring Boot
-Spring Security
-JWT
-Spring Data JPA
-Hibernate
-Maven
-
+Frontend
+- React.js
+- Vite
+- JavaScript
+- HTML5
+- CSS3
+- Axios
+- React Router
+Backend
+- Java
+- Spring Boot
+- Spring Security
+- JWT
+- Spring Data JPA
+- Hibernate
+- Maven
 🌐 Application URLs
 During local development:
 Frontend
 http://localhost:5173
-
 Backend
 http://localhost:8080
-
 ⭐ Conclusion
 The Employee Management System is a complete full-stack project demonstrating how a modern web application can be developed using React.js, Spring Boot, Spring Security, JWT, Hibernate, and MySQL.
 The project demonstrates frontend development, backend REST API development, database management, authentication, authorization, role-based access control, and full-stack integration.
